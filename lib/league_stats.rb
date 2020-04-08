@@ -1,5 +1,3 @@
-require 'CSV'
-
 class LeagueStats
 
   attr_reader :game_teams, :teams
