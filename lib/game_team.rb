@@ -1,7 +1,19 @@
-class GameTeam
+require 'CSV'
 
+class GameTeam
+  @@all = []
   attr_reader :game_id, :team_id, :hoa, :result, :head_coach,
               :goals, :shots, :tackles
+
+  def self.from_csv(file_path)
+    csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol )
+    @@all = csv.map{|row| GameTeam.new(row)}
+  end
+
+  def self.all
+    @@all
+  end
+
   def initialize(game_team_details)
     @game_id = game_team_details[:game_id].to_i
     @team_id = game_team_details[:team_id].to_i
