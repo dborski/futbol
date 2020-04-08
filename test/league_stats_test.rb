@@ -20,4 +20,13 @@ class LeagueStatsTest < Minitest::Test
     assert_equal @game_teams, @league_stats.game_teams
     assert_equal @teams, @league_stats.teams
   end
+
+  def test_goals_by_team
+    assert_equal [3, 3, 2, 3, 3, 3, 4, 2, 1], @league_stats.goals_by_team[6]
+  end
+
+  def test_average_number_of_goals
+    skip
+    assert_equal 3.5, @league_stats.average_num_of_goals
+  end
 end
