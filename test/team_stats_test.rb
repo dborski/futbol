@@ -7,9 +7,13 @@ require './test/test_helper'
 class TeamStatsTest < Minitest::Test
 
   def setup
-    @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_truncated.csv")
+    @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_truncated_new.csv")
     @teams = Team.from_csv("./data/teams.csv")
+<<<<<<< HEAD
     @games = Game.from_csv("./test/fixtures/games_truncated.csv")
+=======
+    @games = Game.from_csv("./test/fixtures/game_truncated_new.csv")
+>>>>>>> master
     @team_stats = TeamStats.new(@game_teams, @teams, @games)
 
   end
@@ -37,8 +41,13 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_it_can_get_games_played_in
+<<<<<<< HEAD
     assert_equal 9, @team_stats.games_played_in(6).length
     assert_equal 7, @team_stats.games_played_in(17).length
+=======
+    assert_equal 25, @team_stats.games_played_in(6).length
+    assert_equal 25, @team_stats.games_played_in(17).length
+>>>>>>> master
 
     @team_stats.games_played_in(6).each do |game|
       assert_instance_of GameTeam, game
@@ -56,11 +65,19 @@ class TeamStatsTest < Minitest::Test
 
   def test_it_can_get_most_goals_scored
     assert_equal 3, @team_stats.most_goals_scored(17)
+<<<<<<< HEAD
     assert_equal 1, @team_stats.most_goals_scored(5)
   end
   def test_it_can_get_fewest_goals_scored
     assert_equal 1, @team_stats.fewest_goals_scored(17)
     assert_equal 1, @team_stats.fewest_goals_scored(6)
+=======
+    assert_equal 4, @team_stats.most_goals_scored(5)
+  end
+  def test_it_can_get_fewest_goals_scored
+    assert_equal 0, @team_stats.fewest_goals_scored(17)
+    assert_equal 0, @team_stats.fewest_goals_scored(6)
+>>>>>>> master
     assert_equal 0, @team_stats.fewest_goals_scored(5)
   end
 end
