@@ -53,4 +53,9 @@ class TeamStatsTest < Minitest::Test
     assert_equal 57.14, @team_stats.average_win_percentage(17)
     assert_equal 100.00, @team_stats.average_win_percentage(6)
   end
+
+  def test_it_can_get_most_goals_scored
+    assert_equal 3, @team_stats.most_goals_scored(17)
+    assert_equal 1, @team_stats.most_goals_scored(5)
+  end
 end

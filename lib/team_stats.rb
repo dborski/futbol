@@ -34,4 +34,9 @@ class TeamStats
     win_percentage = (win_ratio * 100.00).round(2)
     win_percentage
   end
+
+  def most_goals_scored(team_id)
+    high_score_game = games_played_in(team_id).max_by{|game| game.goals}
+    high_score_game.goals
+  end
 end
