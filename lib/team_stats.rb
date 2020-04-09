@@ -39,4 +39,9 @@ class TeamStats
     high_score_game = games_played_in(team_id).max_by{|game| game.goals}
     high_score_game.goals
   end
+
+  def fewest_goals_scored(team_id)
+    low_score_game = games_played_in(team_id).min_by{|game| game.goals}
+    low_score_game.goals
+  end
 end
