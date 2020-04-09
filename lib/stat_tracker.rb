@@ -18,7 +18,7 @@ class StatTracker
     Game.all
   end
 
-  def games 
+  def teams
     Team.from_csv(@game_path)
     Team.all
   end
