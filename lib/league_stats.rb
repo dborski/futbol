@@ -71,4 +71,16 @@ class LeagueStats
     end
     team.team_name
   end
+
+  def highest_scoring_home_team
+    home_games = @game_teams.find_all do |team|
+      team.hoa == "home"
+    end
+    home_team = home_games.max_by {|team| average_goals_per_team(team.team_id)}
+    home_team_id = home_team.team_id
+    team = @teams.find do |team|
+      team.team_id == home_team_id
+    end
+    team.team_name
+  end
 end
