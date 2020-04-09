@@ -45,8 +45,11 @@ skip
   end
 
   def test_it_can_return_best_offense
-
     assert_equal "FC Dallas", @league_stats.best_offense
+  end
+
+  def test_it_can_return_worst_offense
+    assert_equal "Sporting Kansas City", @league_stats.worst_offense
   end
 
 

@@ -38,4 +38,13 @@ class LeagueStats
     end
     team.team_name
   end
+
+  def worst_offense
+    game_team = @game_teams.min_by {|team| average_goals_per_team(team.team_id)}
+    game_team_id = game_team.team_id
+    team = @teams.find do |team|
+      team.team_id == game_team_id
+    end
+    team.team_name
+  end
 end
