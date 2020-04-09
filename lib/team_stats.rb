@@ -22,4 +22,8 @@ class TeamStats
     game = @games.find{|game| game.game_id == game_id }
     game.season
   end
+
+  def games_played_in(team_id)
+    @game_teams.select{|game| game.team_id == team_id}
+  end
 end

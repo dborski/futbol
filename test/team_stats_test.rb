@@ -36,6 +36,21 @@ class TeamStatsTest < Minitest::Test
     assert_equal "20122013", @team_stats.season_from_game(2012030221)
   end
 
-    
+  def test_it_can_get_games_played_in
+    assert_equal 9, @team_stats.games_played_in(6).length
+    assert_equal 7, @team_stats.games_played_in(17).length
+
+    @team_stats.games_played_in(6).each do |game|
+      assert_instance_of GameTeam, game
+    end
+
+    @team_stats.games_played_in(6).each do |game|
+      assert_equal 6, game.team_id
+    end
+  end
+
+  def test_it_can_get_average_win_percentage
+    assert_equal 57.14, @team_stats.average_win_percentage(17)
+    assert equal 100.00, @team_stats.average_win_percentage(6)
   end
 end
