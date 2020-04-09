@@ -63,4 +63,8 @@ skip
   def test_it_can_return_highest_scoring_home_team
     assert_equal "FC Dallas", @league_stats.highest_scoring_home_team
   end
+
+  def test_it_can_return_lowest_scoring_home_team
+    assert_equal "Sporting Kansas City", @league_stats.lowest_scoring_home_team
+  end
 end
