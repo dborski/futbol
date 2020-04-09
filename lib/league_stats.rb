@@ -47,4 +47,28 @@ class LeagueStats
     end
     team.team_name
   end
+
+  def highest_scoring_visitor
+    away_games = @game_teams.find_all do |team|
+      team.hoa == "away"
+    end
+    away_team = away_games.max_by {|team| average_goals_per_team(team.team_id)}
+    away_team_id = away_team.team_id
+    team = @teams.find do |team|
+      team.team_id == away_team_id
+    end
+    team.team_name
+  end
+
+  def lowest_scoring_visitor
+    away_games = @game_teams.find_all do |team|
+      team.hoa == "away"
+    end
+    away_team = away_games.min_by {|team| average_goals_per_team(team.team_id)}
+    away_team_id = away_team.team_id
+    team = @teams.find do |team|
+      team.team_id == away_team_id
+    end
+    team.team_name
+  end
 end
