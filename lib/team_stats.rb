@@ -26,4 +26,12 @@ class TeamStats
   def games_played_in(team_id)
     @game_teams.select{|game| game.team_id == team_id}
   end
+
+  def average_win_percentage(team_id)
+    games_played = games_played_in(team_id)
+    games_won = games_played.select{|game| game.result == "WIN"}
+    win_ratio = games_won.length.to_f / games_played.length.to_f
+    win_percentage = (win_ratio * 100.00).round(2)
+    win_percentage
+  end
 end
