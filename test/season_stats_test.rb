@@ -27,6 +27,7 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 30, @season_stats.games_ids_by_season("20122013").length
     assert_equal 30, @season_stats.games_ids_by_season("20132014").length
     assert_equal 30, @season_stats.games_ids_by_season("20142015").length
+    assert_equal 30, @season_stats.games_ids_by_season("20152016").length
     assert_equal 30, @season_stats.games_ids_by_season("20162017").length
     assert_equal 30, @season_stats.games_ids_by_season("20172018").length
   end
@@ -35,14 +36,17 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 60, @season_stats.games_by_season_id("20122013").length
     assert_equal 60, @season_stats.games_by_season_id("20132014").length
     assert_equal 60, @season_stats.games_by_season_id("20142015").length
+    assert_equal 60, @season_stats.games_by_season_id("20152016").length
     assert_equal 60, @season_stats.games_by_season_id("20162017").length
     assert_equal 60, @season_stats.games_by_season_id("20172018").length
   end
 
   def test_winningnest_coach
-    skip
-    assert_equal "Mike Babcok", @season_stats.winningest_coach("20122013")
-    assert_equal "Mike Babcok", @season_stats.winningest_coach("20132014")
+    assert_equal "Todd McLellan", @season_stats.winningest_coach("20122013")
+    assert_equal "Todd Richards", @season_stats.winningest_coach("20132014")
+    assert_equal "Todd Richards", @season_stats.winningest_coach("20142015")
+    assert_equal "Willie Desjardins", @season_stats.winningest_coach("20152016")
+    assert_equal "Todd McLellan", @season_stats.winningest_coach("20162017")
   end
 end
 

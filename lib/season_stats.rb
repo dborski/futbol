@@ -23,8 +23,8 @@ class SeasonStats
   end
 
   def winningest_coach(season_id)
-    #finding all games by season id
-    require "pry"; binding.pry
-    #find winningest coach by that season
+    winnings_games = games_by_season_id(season_id).find_all { |game| game.result == "WIN"}
+    winning_coach = winnings_games.max_by { |game| game.head_coach}
+    winning_coach.head_coach
   end
 end
