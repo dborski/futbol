@@ -20,4 +20,12 @@ class TeamStatsTest < Minitest::Test
     assert_equal @game_teams, @team_stats.game_teams
     assert_equal @teams, @team_stats.teams
   end
+
+  def test_it_can_get_team_info
+    expected = {team_id: 1, franchise_id: 23,
+                team_name: "Atlanta United", abbreviation: "ATL",
+                link: "/api/v1/teams/1"
+                }
+    assert_equal expected, @team_stats.team_info(1)
+  end
 end
