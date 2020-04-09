@@ -9,7 +9,9 @@ class TeamStatsTest < Minitest::Test
   def setup
     @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_truncated.csv")
     @teams = Team.from_csv("./data/teams.csv")
-    @team_stats = TeamStats.new(@game_teams, @teams)
+    @games = Game.from_csv("./test/fixtures/games_truncated.csv")
+    @team_stats = TeamStats.new(@game_teams, @teams, @games)
+
   end
 
   def test_it_exists
@@ -19,6 +21,7 @@ class TeamStatsTest < Minitest::Test
   def test_it_has_readable_attributes
     assert_equal @game_teams, @team_stats.game_teams
     assert_equal @teams, @team_stats.teams
+    assert_equal @games, @team_stats.games
   end
 
   def test_it_can_get_team_info
@@ -27,5 +30,12 @@ class TeamStatsTest < Minitest::Test
                 link: "/api/v1/teams/1"
                 }
     assert_equal expected, @team_stats.team_info(1)
+  end
+
+  def test_it_can_get_season_from_game_id
+    assert_equal "20122013", @team_stats.season_from_game(2012030221)
+  end
+
+    
   end
 end
