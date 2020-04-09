@@ -30,31 +30,12 @@ class LeagueStats
     (total_goals_by_team_id(team_id).to_f / total_games_by_team_id(team_id).to_f).round(2)
   end
 
-  def highest_average_goals
-  game_team = @game_teams.max_by {|team| average_goals_per_team(team.team_id)}
-  game_team_id = game_team.team_id
-  team = @teams.find do |team|
-    team.team_id == game_team_id
+  def best_offense
+    game_team = @game_teams.max_by {|team| average_goals_per_team(team.team_id)}
+    game_team_id = game_team.team_id
+    team = @teams.find do |team|
+      team.team_id == game_team_id
+    end
+    team.team_name
   end
-  team.team_name
-  end
-
-
-
-  # def goals_by_team
-  #   games_by_team = @game_teams.group_by do |game|
-  #     game.team_id
-  #   end
-  #   games_by_team.transform_values do |group|
-  #     group.map {|game| game.goals}
-  #   end
-  # end
-  #
-  # def average_num_of_goals
-  #   require "pry"; binding.pry
-  #   goals = 0
-  #   goals_by_team.sum {|goal| goals += 1 }
-  #
-  #   goals / goals_by_team
-  # end
 end

@@ -44,14 +44,11 @@ skip
     assert_equal 2.67, @league_stats.average_goals_per_team(6)
   end
 
-  def test_it_can_return_team__name_with_highest_average_goals
+  def test_it_can_return_best_offense
 
-    assert_equal "FC Dallas", @league_stats.highest_average_goals
+    assert_equal "FC Dallas", @league_stats.best_offense
   end
 
-  def test_it_can_return_name_of_team_with_highest_average_goals
-    skip
-    assert_equal "Team Name", @league_stats.highest_average_goals_team_name
-  end
+
 
 end
