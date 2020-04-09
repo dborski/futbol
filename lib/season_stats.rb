@@ -23,8 +23,19 @@ class SeasonStats
   end
 
   def winningest_coach(season_id)
+    ### game teams by coach, coach as a key, all game_team objects as values
+    ### win percentage of values array
+    ### wing percentage method as own method
     winnings_games = games_by_season_id(season_id).find_all { |game| game.result == "WIN"}
     winning_coach = winnings_games.max_by { |game| game.head_coach}
-    winning_coach.head_coach
+    winning_coach
+    require "pry"; binding.pry
   end
+  #
+  # def worst_coach(season_id)
+  #   losing_games = games_by_season_id(season_id).find_all { |game| game.result == "LOSS"}
+  #   losing_coach = losing_games.max_by { |game| game.head_coach}
+  #   losing_coach.head_coach
+  #   require "pry"; binding.pry
+  # end
 end

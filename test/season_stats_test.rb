@@ -48,6 +48,14 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Willie Desjardins", @season_stats.winningest_coach("20152016")
     assert_equal "Todd McLellan", @season_stats.winningest_coach("20162017")
   end
+
+  def test_worst_coach
+    assert_equal "Randy Carlyle", @season_stats.worst_coach("20122013")
+    assert_equal "Ron Rolston", @season_stats.worst_coach("20132014")
+    assert_equal "Ted Nolan", @season_stats.worst_coach("20142015")
+    assert_equal "Willie Desjardins", @season_stats.worst_coach("20152016")
+    assert_equal "Randy Carlyle", @season_stats.worst_coach("20162017")
+  end
 end
 
 # Season Statistics
