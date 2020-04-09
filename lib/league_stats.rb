@@ -33,65 +33,56 @@ class LeagueStats
   def best_offense
     game_team = @game_teams.max_by {|team| average_goals_per_team(team.team_id)}
     game_team_id = game_team.team_id
-    team = @teams.find do |team|
-      team.team_id == game_team_id
-    end
-    team.team_name
+    find_name(game_team_id)
   end
 
   def worst_offense
     game_team = @game_teams.min_by {|team| average_goals_per_team(team.team_id)}
     game_team_id = game_team.team_id
-    team = @teams.find do |team|
-      team.team_id == game_team_id
-    end
-    team.team_name
+    find_name(game_team_id)
   end
 
+
   def highest_scoring_visitor
-    away_games = @game_teams.find_all do |team|
-      team.hoa == "away"
-    end
     away_team = away_games.max_by {|team| average_goals_per_team(team.team_id)}
     away_team_id = away_team.team_id
-    team = @teams.find do |team|
-      team.team_id == away_team_id
-    end
-    team.team_name
+    find_name(away_team_id)
   end
 
   def lowest_scoring_visitor
-    away_games = @game_teams.find_all do |team|
-      team.hoa == "away"
-    end
     away_team = away_games.min_by {|team| average_goals_per_team(team.team_id)}
     away_team_id = away_team.team_id
-    team = @teams.find do |team|
-      team.team_id == away_team_id
-    end
-    team.team_name
+    find_name(away_team_id)
   end
 
   def highest_scoring_home_team
-    home_games = @game_teams.find_all do |team|
-      team.hoa == "home"
-    end
     home_team = home_games.max_by {|team| average_goals_per_team(team.team_id)}
     home_team_id = home_team.team_id
-    team = @teams.find do |team|
-      team.team_id == home_team_id
-    end
-    team.team_name
+    find_name(home_team_id)
   end
 
   def lowest_scoring_home_team
-    home_games = @game_teams.find_all do |team|
-      team.hoa == "home"
-    end
     home_team = home_games.min_by {|team| average_goals_per_team(team.team_id)}
     home_team_id = home_team.team_id
+    find_name(home_team_id)
+  end
+
+ # helper methods
+  def home_games
+     @game_teams.find_all do |team|
+      team.hoa == "home"
+    end
+  end
+
+  def away_games
+    @game_teams.find_all do |team|
+      team.hoa == "away"
+    end
+  end
+
+  def find_name(game_team_id)
     team = @teams.find do |team|
-      team.team_id == home_team_id
+      team.team_id == game_team_id
     end
     team.team_name
   end
