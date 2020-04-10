@@ -9,13 +9,8 @@ class TeamStatsTest < Minitest::Test
   def setup
     @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_truncated_new.csv")
     @teams = Team.from_csv("./data/teams.csv")
-<<<<<<< HEAD
-    @games = Game.from_csv("./test/fixtures/games_truncated.csv")
-=======
     @games = Game.from_csv("./test/fixtures/game_truncated_new.csv")
->>>>>>> master
     @team_stats = TeamStats.new(@game_teams, @teams, @games)
-
   end
 
   def test_it_exists
@@ -36,18 +31,17 @@ class TeamStatsTest < Minitest::Test
     assert_equal expected, @team_stats.team_info(1)
   end
 
-  def test_it_can_get_season_from_game_id
-    assert_equal "20122013", @team_stats.season_from_game(2012030221)
+  def test_it_can_get_season_and_game_from_game_id
+    game3 = mock
+    @games.stubs(:find).returns(game3)
+    game3.stubs(:season).returns("20122013")
+    expected = {"20122013" => game3}
+    assert_equal expected, @team_stats.season_from_game(2012020004)
   end
 
   def test_it_can_get_games_played_in
-<<<<<<< HEAD
-    assert_equal 9, @team_stats.games_played_in(6).length
-    assert_equal 7, @team_stats.games_played_in(17).length
-=======
-    assert_equal 25, @team_stats.games_played_in(6).length
-    assert_equal 25, @team_stats.games_played_in(17).length
->>>>>>> master
+    assert_equal 24, @team_stats.games_played_in(6).length
+    assert_equal 24, @team_stats.games_played_in(17).length
 
     @team_stats.games_played_in(6).each do |game|
       assert_instance_of GameTeam, game
@@ -59,25 +53,29 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_it_can_get_average_win_percentage
-    assert_equal 57.14, @team_stats.average_win_percentage(17)
-    assert_equal 100.00, @team_stats.average_win_percentage(6)
+    assert_equal 33.33, @team_stats.average_win_percentage(17)
+    assert_equal 37.50, @team_stats.average_win_percentage(6)
   end
 
   def test_it_can_get_most_goals_scored
     assert_equal 3, @team_stats.most_goals_scored(17)
-<<<<<<< HEAD
-    assert_equal 1, @team_stats.most_goals_scored(5)
-  end
-  def test_it_can_get_fewest_goals_scored
-    assert_equal 1, @team_stats.fewest_goals_scored(17)
-    assert_equal 1, @team_stats.fewest_goals_scored(6)
-=======
     assert_equal 4, @team_stats.most_goals_scored(5)
   end
   def test_it_can_get_fewest_goals_scored
     assert_equal 0, @team_stats.fewest_goals_scored(17)
     assert_equal 0, @team_stats.fewest_goals_scored(6)
->>>>>>> master
     assert_equal 0, @team_stats.fewest_goals_scored(5)
   end
+
+  def test_it_can_get_games_by_season
+    game1 = mock
+    game2 = mock
+    game3 = mock
+    @team_stats.stubs(:games_played_in).returns([game1, game2, game3])
+    @team_stats.games_played_in.stubs(:map).returns([{"2012" => game1}, {"2012" => game2}, {"2013" => game3}])
+    expected = {"2012" => [game1, game2], "2013" => [game3]}
+    assert_equal expected, @team_stats.games_by_season(1)
+  end
+
+
 end

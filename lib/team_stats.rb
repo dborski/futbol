@@ -19,8 +19,10 @@ class TeamStats
   end
 
   def season_from_game(game_id)
+    game_season = {}
     game = @games.find{|game| game.game_id == game_id }
-    game.season
+    game_season[game.season] = game
+    game_season
   end
 
   def games_played_in(team_id)
@@ -44,4 +46,20 @@ class TeamStats
     low_score_game = games_played_in(team_id).min_by{|game| game.goals}
     low_score_game.goals
   end
+
+  def games_by_season(team_id)
+    games_by_season = {}
+    games = games_played_in(team_id).map do |game|
+      season_from_game(game.game_id)
+    end
+    games.each do |game|
+      unless games_by_season[game.keys[0]]
+        games_by_season[game.keys[0]] = []
+      end
+      games_by_season[game.keys[0]] << game.values[0]
+    end
+    games_by_season
+  end
+
+
 end
