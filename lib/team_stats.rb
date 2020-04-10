@@ -76,4 +76,12 @@ class TeamStats
     end
     best_season[0]
   end
+
+  def worst_season(team_id)
+    win_percentages = win_percentage_by_season(team_id)
+    worst_season = win_percentages.min_by do |season,win_percentage|
+      win_percentage
+    end
+    worst_season[0]
+  end
 end
