@@ -111,7 +111,29 @@ class TeamStatsTest < Minitest::Test
 
   end
 
-  # def test_it_can_get_all_games_by_opponent
-  #   assert_equal 4, @team_stats.games_by_opponent(6)
-  # end
+  def test_it_can_get_all_games_by_opponent
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team5 = mock
+    game_team6 = mock
+    @team_stats.stubs(:games_played_in).returns([game_team1, game_team3, game_team5])
+    @team_stats.stubs(:game_teams).returns([game_team1, game_team2, game_team3, game_team4, game_team5, game_team6])
+    game_team1.stubs(:game_id).returns(1)
+    game_team2.stubs(:game_id).returns(1)
+    game_team3.stubs(:game_id).returns(2)
+    game_team4.stubs(:game_id).returns(2)
+    game_team5.stubs(:game_id).returns(3)
+    game_team6.stubs(:game_id).returns(3)
+
+    game_team1.stubs(:team_id).returns(1).then.returns(1)
+    game_team2.stubs(:team_id).returns(2).then.returns(2)
+    game_team3.stubs(:team_id).returns(1).then.returns(1)
+    game_team4.stubs(:team_id).returns(3).then.returns(3)
+    game_team5.stubs(:team_id).returns(1).then.returns(1)
+    game_team6.stubs(:team_id).returns(3).then.returns(3)
+    expected = {2 => [game_team2], 3 => [game_team4, game_team6]}
+    assert_equal expected, @team_stats.games_by_opponent(1)
+  end
 end

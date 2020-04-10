@@ -88,9 +88,16 @@ class TeamStats
   end
 
   def find_opponent_games(game_id, team_id)
-    @game_teams.find do |game|
+    game_teams.find do |game|
       game.game_id == game_id && game.team_id != team_id
     end
   end
 
+  def games_by_opponent(team_id)
+    games = games_played_in(team_id)
+    opponent_games = games.map do |game|
+      find_opponent_games(game.game_id, team_id)
+    end
+    opponent_games.group_by { |game| game.team_id }
+  end
 end
