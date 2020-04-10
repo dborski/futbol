@@ -41,20 +41,25 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 60, @season_stats.games_by_season_id("20172018").length
   end
 
+  def test_winning_percentage_by_head_coach
+    assert_instance_of Hash, @season_stats.winning_percentage_by_head_coach("20122013")
+    assert_equal 30, @season_stats.winning_percentage_by_head_coach("20122013").length
+  end
+
   def test_winningnest_coach
-    assert_equal "Todd McLellan", @season_stats.winningest_coach("20122013")
-    assert_equal "Todd Richards", @season_stats.winningest_coach("20132014")
-    assert_equal "Todd Richards", @season_stats.winningest_coach("20142015")
-    assert_equal "Willie Desjardins", @season_stats.winningest_coach("20152016")
-    assert_equal "Todd McLellan", @season_stats.winningest_coach("20162017")
+    assert_equal "Dan Bylsma", @season_stats.winningest_coach("20122013")
+    assert_equal "Michel Therrien", @season_stats.winningest_coach("20132014")
+    assert_equal "Todd McLellan", @season_stats.winningest_coach("20142015")
+    assert_equal "Peter DeBoer", @season_stats.winningest_coach("20152016")
+    assert_equal "Ken Hitchcock", @season_stats.winningest_coach("20162017")
   end
 
   def test_worst_coach
-    assert_equal "Randy Carlyle", @season_stats.worst_coach("20122013")
-    assert_equal "Ron Rolston", @season_stats.worst_coach("20132014")
-    assert_equal "Ted Nolan", @season_stats.worst_coach("20142015")
-    assert_equal "Willie Desjardins", @season_stats.worst_coach("20152016")
-    assert_equal "Randy Carlyle", @season_stats.worst_coach("20162017")
+    assert_equal "Peter Laviolette", @season_stats.worst_coach("20122013")
+    assert_equal "Adam Oates", @season_stats.worst_coach("20132014")
+    assert_equal "Michel Therrien", @season_stats.worst_coach("20142015")
+    assert_equal "Mike Babcock", @season_stats.worst_coach("20152016")
+    assert_equal "Joel Quenneville", @season_stats.worst_coach("20162017")
   end
 end
 
