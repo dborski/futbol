@@ -88,4 +88,11 @@ class TeamStatsTest < Minitest::Test
     game3.stubs(:result).returns("WIN")
     assert_equal expected, @team_stats.win_percentage_by_season(1)
   end
+
+  def test_it_can_get_best_season
+    result = {"2012" => 50.00, "2013" => 100.00,
+                "2014" => 12.31, "2015" => 66.33}
+    @team_stats.stubs(:win_percentage_by_season).returns(result)
+    assert_equal "2013", @team_stats.best_season(1)
+  end
 end
