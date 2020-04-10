@@ -86,4 +86,11 @@ class TeamStats
     end
     worst_season[0]
   end
+
+  def find_opponent_games(game_id, team_id)
+    @game_teams.find do |game|
+      game.game_id == game_id && game.team_id != team_id
+    end
+  end
+
 end

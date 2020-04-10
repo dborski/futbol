@@ -103,4 +103,15 @@ class TeamStatsTest < Minitest::Test
     @team_stats.stubs(:win_percentage_by_season).returns(result)
     assert_equal "2014", @team_stats.worst_season(1)
   end
+
+  def test_it_can_find_opponent_games
+    assert_equal 5, @team_stats.find_opponent_games(2012020001,4).team_id
+    assert_instance_of GameTeam, @team_stats.find_opponent_games(2012020001,4)
+    assert_equal 52, @team_stats.find_opponent_games(2012020002,9).team_id
+
+  end
+
+  # def test_it_can_get_all_games_by_opponent
+  #   assert_equal 4, @team_stats.games_by_opponent(6)
+  # end
 end
