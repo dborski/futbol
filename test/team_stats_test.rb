@@ -136,4 +136,33 @@ class TeamStatsTest < Minitest::Test
     expected = {2 => [game_team2], 3 => [game_team4, game_team6]}
     assert_equal expected, @team_stats.games_by_opponent(1)
   end
+
+  def test_it_can_gets_opponent_win_percentage
+    game_team1 = mock
+    game_team2 = mock
+    game_team3 = mock
+    game_team4 = mock
+    game_team5 = mock
+    game_team6 = mock
+    game_team7 = mock
+    game_team8 = mock
+
+    @team_stats.stubs(:games_by_opponent).returns({ 2 => [game_team1, game_team2, game_team3],
+                                                    3 => [game_team4, game_team5],
+                                                    5 => [game_team6, game_team7, game_team8]})
+
+    game_team1.stubs(:result).returns("WIN")
+    game_team2.stubs(:result).returns("LOSS")
+    game_team3.stubs(:result).returns("LOSS")
+    game_team4.stubs(:result).returns("WIN")
+    game_team5.stubs(:result).returns("LOSS")
+    game_team6.stubs(:result).returns("WIN")
+    game_team7.stubs(:result).returns("WIN")
+    game_team8.stubs(:result).returns("LOSS")
+
+    expected = {2 => 33.33,
+                3 => 50.00,
+                5 => 66.67}
+    assert_equal expected, @team_stats.opponent_win_percentages(1)
+  end
 end

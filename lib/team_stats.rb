@@ -100,4 +100,12 @@ class TeamStats
     end
     opponent_games.group_by { |game| game.team_id }
   end
+
+  def opponent_win_percentages(team_id)
+    games_by_opponent(team_id).transform_values do |games|
+      total_games = games.length.to_f
+      wins = games.select{|game| game.result == "WIN"}.length.to_f
+      ((wins / total_games) * 100).round(2)
+    end
+  end
 end
