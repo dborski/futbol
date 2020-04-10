@@ -61,5 +61,11 @@ class TeamStats
     games_by_season
   end
 
-
+  def win_percentage_by_season(team_id)
+    games_by_season(team_id).transform_values do |games|
+      total_games = games.length.to_f
+      wins = games.select{|game| game.result == "WIN"}.length.to_f
+      ((wins / total_games) * 100).round(2)
+    end
+  end
 end
