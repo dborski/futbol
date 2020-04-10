@@ -56,6 +56,11 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 31, @season_stats.games_by_team_name("20172018").length
   end
 
+  def test_games_by_head_coach
+    assert_instance_of Hash, @season_stats.games_by_head_coach("20122013")
+    assert_equal 30, @season_stats.games_by_head_coach("20122013").length
+  end
+
   def test_winning_percentage_by_head_coach
     assert_instance_of Hash, @season_stats.winning_percentage_by_head_coach("20122013")
     assert_equal 30, @season_stats.winning_percentage_by_head_coach("20122013").length
@@ -119,19 +124,3 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Montreal Impact", @season_stats.fewest_tackles("20162017")
   end
 end
-
-# Season Statistics
-# These methods each take a season id as an argument and return the values described below.
-#
-# Method	Description	Return Value
-# winningest_coach	Name of the Coach with the best win percentage for the season	String
-
-# worst_coach	Name of the Coach with the worst win percentage for the season	String
-
-# most_accurate_team	Name of the Team with the best ratio of shots to goals for the season	String
-
-# least_accurate_team	Name of the Team with the worst ratio of shots to goals for the season	String
-
-# most_tackles	Name of the Team with the most tackles in the season	String
-
-# fewest_tackles	Name of the Team with the fewest tackles in the season	String
