@@ -97,6 +97,27 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Real Salt Lake", @season_stats.least_accurate_team("20152016")
     assert_equal "Utah Royals FC", @season_stats.least_accurate_team("20162017")
   end
+
+  def test_tackles_by_team
+    assert_instance_of Hash, @season_stats.tackles_by_team("20122013")
+    assert_equal 30, @season_stats.tackles_by_team("20122013").length
+  end
+
+  def test_most_tackles_by_season
+    assert_equal "Portland Thorns FC", @season_stats.most_tackles("20122013")
+    assert_equal "North Carolina Courage", @season_stats.most_tackles("20132014")
+    assert_equal "Chicago Fire", @season_stats.most_tackles("20142015")
+    assert_equal "Houston Dynamo", @season_stats.most_tackles("20152016")
+    assert_equal "Real Salt Lake", @season_stats.most_tackles("20162017")
+  end
+
+  def test_least_tackles_by_season
+    assert_equal "Washington Spirit FC", @season_stats.fewest_tackles("20122013")
+    assert_equal "Los Angeles FC", @season_stats.fewest_tackles("20132014")
+    assert_equal "Portland Thorns FC", @season_stats.fewest_tackles("20142015")
+    assert_equal "Real Salt Lake", @season_stats.fewest_tackles("20152016")
+    assert_equal "Montreal Impact", @season_stats.fewest_tackles("20162017")
+  end
 end
 
 # Season Statistics

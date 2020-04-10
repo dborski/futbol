@@ -75,12 +75,29 @@ class SeasonStats
   def most_accurate_team(season_id)
     best_shot_accuracy = shooting_percentage_by_team(season_id).max_by { |key, value| value}
     best_shot_accuracy.first
-    # require "pry"; binding.pry
   end
 
   def least_accurate_team(season_id)
     worst_shot_accuracy = shooting_percentage_by_team(season_id).max_by { |key, value| -value}
     worst_shot_accuracy.first
-    # require "pry"; binding.pry
+  end
+
+  def tackles_by_team(season_id)
+    tackles_by_team = {}
+    games_by_team_name(season_id).each do |key, value|
+      total_tackles = value.sum { |value| value.tackles}
+      tackles_by_team[key] = total_tackles
+    end
+    tackles_by_team
+  end
+
+  def most_tackles(season_id)
+    most_tackles = tackles_by_team(season_id).max_by { |key, value| value}
+    most_tackles.first
+  end
+
+  def fewest_tackles(season_id)
+    fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value}
+    fewest_tackles.first
   end
 end
