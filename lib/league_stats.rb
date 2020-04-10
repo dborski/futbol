@@ -6,10 +6,6 @@ class LeagueStats
     @teams = teams
   end
 
-  # def goals_by_team(team_id)
-  #   @game_teams.sum {|goals| }
-  # end
-
   def find_by_collection(team_id, csv_header, game_teams)
     @game_teams.find_all { |team| team.send(csv_header) == team_id }
   end
@@ -67,7 +63,6 @@ class LeagueStats
     find_name(home_team_id)
   end
 
- # helper methods
   def home_games
      @game_teams.find_all do |team|
       team.hoa == "home"
