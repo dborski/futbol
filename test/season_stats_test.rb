@@ -116,7 +116,7 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Real Salt Lake", @season_stats.most_tackles("20162017")
   end
 
-  def test_least_tackles_by_season
+  def test_fewest_tackles_by_season
     assert_equal "Washington Spirit FC", @season_stats.fewest_tackles("20122013")
     assert_equal "Los Angeles FC", @season_stats.fewest_tackles("20132014")
     assert_equal "Portland Thorns FC", @season_stats.fewest_tackles("20142015")

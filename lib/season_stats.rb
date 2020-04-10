@@ -39,7 +39,6 @@ class SeasonStats
 
   def winning_percentage_by_head_coach(season_id)
     winning_percentage_by_head_coach = {}
-
     games_by_head_coach(season_id).each do |key, value|
       winning_games = value.find_all { |value| value.result == "WIN" }
       if winning_games.length != 0
