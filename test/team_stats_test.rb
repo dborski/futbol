@@ -33,6 +33,7 @@ class TeamStatsTest < Minitest::Test
 
   def test_it_can_get_season_and_game_from_game_id
     game3 = mock
+    @game_teams.stubs(:find).returns(game3)
     @games.stubs(:find).returns(game3)
     game3.stubs(:season).returns("20122013")
     expected = {"20122013" => game3}
