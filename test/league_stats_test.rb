@@ -7,7 +7,7 @@ require './test/test_helper'
 class LeagueStatsTest < Minitest::Test
 
   def setup
-    @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_truncated.csv")
+    @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_truncated_new.csv")
     @teams = Team.from_csv("./data/teams.csv")
     @league_stats = LeagueStats.new(@game_teams, @teams)
   end
@@ -21,50 +21,40 @@ class LeagueStatsTest < Minitest::Test
     assert_equal @teams, @league_stats.teams
   end
 
-  # def test_goals_by_team
-  #
-  #   assert_equal [3, 3, 2, 3, 3, 3, 4, 2, 1], @league_stats.goals_by_team(6)
-  # end
-
   def test_can_find_by_collection
     assert_instance_of Array, @league_stats.find_by_collection(6, "team_id", @game_teams)
-    assert_equal 9, @league_stats.find_by_collection(6, "team_id", @game_teams).count
-  end
-
-  def test_average_number_of_goals
-skip
-    assert_equal 3.5, @league_stats.average_num_of_goals
+    assert_equal 24, @league_stats.find_by_collection(6, "team_id", @game_teams).count
   end
 
   def test_it_can_return_games_by_team
-    assert_equal 9, @league_stats.games_by_team(6).count
+    assert_equal 24, @league_stats.games_by_team(6).count
   end
-# total_games_by_team_id(team_id)
+
   def test_it_can_return_average_goals_per_team
-    assert_equal 2.67, @league_stats.average_goals_per_team(6)
+    assert_equal 1.96, @league_stats.average_goals_per_team(6)
   end
 
   def test_it_can_return_best_offense
-    assert_equal "FC Dallas", @league_stats.best_offense
+    assert_equal "New England Revolution", @league_stats.best_offense
   end
 
   def test_it_can_return_worst_offense
-    assert_equal "Sporting Kansas City", @league_stats.worst_offense
+    assert_equal "FC Cincinnati", @league_stats.worst_offense
   end
 
   def test_it_can_return_highest_scoring_visitor
-    assert_equal "FC Dallas", @league_stats.highest_scoring_visitor
+    assert_equal "New England Revolution", @league_stats.highest_scoring_visitor
   end
 
   def test_it_can_return_lowest_scoring_visitor
-    assert_equal "Sporting Kansas City", @league_stats.lowest_scoring_visitor
+    assert_equal "FC Cincinnati", @league_stats.lowest_scoring_visitor
   end
 
   def test_it_can_return_highest_scoring_home_team
-    assert_equal "FC Dallas", @league_stats.highest_scoring_home_team
+    assert_equal "New England Revolution", @league_stats.highest_scoring_home_team
   end
 
   def test_it_can_return_lowest_scoring_home_team
-    assert_equal "Sporting Kansas City", @league_stats.lowest_scoring_home_team
+    assert_equal "FC Cincinnati", @league_stats.lowest_scoring_home_team
   end
 end
