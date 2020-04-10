@@ -22,6 +22,19 @@ class SeasonStats
     games_by_id
   end
 
+  def team_name_by_team_id
+    all_teams = {}
+    @teams.each do |team|
+      all_teams[team.team_id] = team.team_name
+    end
+    all_teams
+  end
+
+  def games_by_team_name(season_id)
+    games_by_id = games_by_season_id(season_id).group_by {|game| game.team_id}
+    games_by_id.transform_keys(&team_name_by_team_id.method(:[]))
+  end
+
   def winning_percentage_by_head_coach(season_id)
     games_by_head_coach = games_by_season_id(season_id).group_by { |game| game.head_coach}
 
@@ -47,5 +60,27 @@ class SeasonStats
   def worst_coach(season_id)
     worst_win_percentage = winning_percentage_by_head_coach(season_id).max_by { |key, value| -value}
     worst_win_percentage.first
+  end
+
+  def shooting_percentage_by_team(season_id)
+    most_accurate_team = {}
+    games_by_team_name(season_id).each do |key, value|
+      total_shots = value.sum { |value| value.shots}
+      total_goals = value.sum { |value| value.goals}
+      most_accurate_team[key] = ((total_goals.to_f / total_shots.to_f) * 100).round(2)
+    end
+    most_accurate_team
+  end
+
+  def most_accurate_team(season_id)
+    best_shot_accuracy = shooting_percentage_by_team(season_id).max_by { |key, value| value}
+    best_shot_accuracy.first
+    # require "pry"; binding.pry
+  end
+
+  def least_accurate_team(season_id)
+    worst_shot_accuracy = shooting_percentage_by_team(season_id).max_by { |key, value| -value}
+    worst_shot_accuracy.first
+    # require "pry"; binding.pry
   end
 end

@@ -41,6 +41,21 @@ class SeasonStatsTest < Minitest::Test
     assert_equal 60, @season_stats.games_by_season_id("20172018").length
   end
 
+  def test_team_name_by_team_id
+    assert_instance_of Hash, @season_stats.team_name_by_team_id
+    assert_equal 32, @season_stats.team_name_by_team_id.length
+  end
+
+  def test_games_by_team_name
+    assert_instance_of Hash, @season_stats.games_by_team_name("20122013")
+    assert_equal 30, @season_stats.games_by_team_name("20122013").length
+    assert_equal 30, @season_stats.games_by_team_name("20132014").length
+    assert_equal 30, @season_stats.games_by_team_name("20142015").length
+    assert_equal 30, @season_stats.games_by_team_name("20152016").length
+    assert_equal 30, @season_stats.games_by_team_name("20162017").length
+    assert_equal 31, @season_stats.games_by_team_name("20172018").length
+  end
+
   def test_winning_percentage_by_head_coach
     assert_instance_of Hash, @season_stats.winning_percentage_by_head_coach("20122013")
     assert_equal 30, @season_stats.winning_percentage_by_head_coach("20122013").length
@@ -60,6 +75,27 @@ class SeasonStatsTest < Minitest::Test
     assert_equal "Michel Therrien", @season_stats.worst_coach("20142015")
     assert_equal "Mike Babcock", @season_stats.worst_coach("20152016")
     assert_equal "Joel Quenneville", @season_stats.worst_coach("20162017")
+  end
+
+  def test_winning_percentage_by_team
+    assert_instance_of Hash, @season_stats.shooting_percentage_by_team("20122013")
+    assert_equal 30, @season_stats.shooting_percentage_by_team("20122013").length
+  end
+
+  def test_most_accurate_team
+    assert_equal "Real Salt Lake", @season_stats.most_accurate_team("20122013")
+    assert_equal "Philadelphia Union", @season_stats.most_accurate_team("20132014")
+    assert_equal "Portland Thorns FC", @season_stats.most_accurate_team("20142015")
+    assert_equal "Houston Dash", @season_stats.most_accurate_team("20152016")
+    assert_equal "Portland Thorns FC", @season_stats.most_accurate_team("20162017")
+  end
+
+  def test_least_accurate_team
+    assert_equal "Sky Blue FC", @season_stats.least_accurate_team("20122013")
+    assert_equal "Utah Royals FC", @season_stats.least_accurate_team("20132014")
+    assert_equal "Vancouver Whitecaps FC", @season_stats.least_accurate_team("20142015")
+    assert_equal "Real Salt Lake", @season_stats.least_accurate_team("20152016")
+    assert_equal "Utah Royals FC", @season_stats.least_accurate_team("20162017")
   end
 end
 
