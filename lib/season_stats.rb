@@ -39,13 +39,14 @@ class SeasonStats
 
   def winning_percentage_by_head_coach(season_id)
     winning_percentage_by_head_coach = {}
-    games_by_head_coach(season_id).each do |key, value|
-      winning_games = value.find_all { |value| value.result == "WIN" }
+
+    games_by_head_coach(season_id).each do |coach, games|
+      winning_games = games.find_all { |game| game.result == "WIN" }
       if winning_games.length != 0
-        value = ((winning_games.length.to_f / value.length.to_f) * 100).round(2)
-        winning_percentage_by_head_coach[key] = value
+        games = ((winning_games.length.to_f / games.length.to_f) * 100).round(2)
+        winning_percentage_by_head_coach[coach] = games
       else
-        winning_percentage_by_head_coach[key] = 0
+        winning_percentage_by_head_coach[coach] = 0
       end
     end
     winning_percentage_by_head_coach
@@ -62,13 +63,13 @@ class SeasonStats
   end
 
   def shooting_percentage_by_team(season_id)
-    most_accurate_team = {}
-    games_by_team_name(season_id).each do |key, value|
-      total_shots = value.sum { |value| value.shots }
-      total_goals = value.sum { |value| value.goals }
-      most_accurate_team[key] = ((total_goals.to_f / total_shots.to_f) * 100).round(2)
+    team_shooting_perctage = {}
+    games_by_team_name(season_id).each do |team, games|
+      total_shots = games.sum { |game| game.shots }
+      total_goals = games.sum { |game| game.goals }
+      team_shooting_perctage[team] = ((total_goals.to_f / total_shots.to_f) * 100).round(2)
     end
-    most_accurate_team
+    team_shooting_perctage
   end
 
   def most_accurate_team(season_id)
@@ -77,26 +78,26 @@ class SeasonStats
   end
 
   def least_accurate_team(season_id)
-    worst_shot_accuracy = shooting_percentage_by_team(season_id).max_by { |key, value| -value }
+    worst_shot_accuracy = shooting_percentage_by_team(season_id).min_by { |key, value| value }
     worst_shot_accuracy.first
   end
 
   def tackles_by_team(season_id)
     tackles_by_team = {}
-    games_by_team_name(season_id).each do |key, value|
-      total_tackles = value.sum { |value| value.tackles }
-      tackles_by_team[key] = total_tackles
+    games_by_team_name(season_id).each do |team, games|
+      total_tackles = games.sum { |game| game.tackles }
+      tackles_by_team[team] = total_tackles
     end
     tackles_by_team
   end
 
   def most_tackles(season_id)
-    most_tackles = tackles_by_team(season_id).max_by { |key, value| value }
+    most_tackles = tackles_by_team(season_id).max_by { |team, tackles| tackles }
     most_tackles.first
   end
 
   def fewest_tackles(season_id)
-    fewest_tackles = tackles_by_team(season_id).max_by { |key, value| -value }
+    fewest_tackles = tackles_by_team(season_id).min_by { |team, tackles| tackles }
     fewest_tackles.first
   end
 end
