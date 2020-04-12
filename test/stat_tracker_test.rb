@@ -2,16 +2,20 @@ require './test/test_helper'
 require './lib/stat_tracker'
 require './lib/game'
 require './lib/team'
+require './lib/game_team'
+require './lib/league_stats'
+require './lib/season_stats'
+require './lib/team_stats'
 
 class StatTrackerTest < Minitest::Test
   def setup
     game_path = './data/games.csv'
-    team_path = './data/teams.csv'
+    teams_path = './data/teams.csv'
     game_teams_path = './data/game_teams.csv'
 
     locations = {
       games: game_path,
-      teams: team_path,
+      teams: teams_path,
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
@@ -22,9 +26,11 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_has_readable_attributes
-    assert_equal './data/games.csv', @stat_tracker.game_path
-    assert_equal './data/teams.csv', @stat_tracker.teams_path
-    assert_equal './data/game_teams.csv', @stat_tracker.game_teams_path
+    assert_instance_of Game, @stat_tracker.games[0]
+    assert_instance_of Team, @stat_tracker.teams[0]
+    assert_instance_of GameTeam, @stat_tracker.game_teams[0]
+    assert_instance_of LeagueStats, @stat_tracker.league_stats
+    assert_instance_of TeamStats, @stat_tracker.team_stats
   end
 
   def test_from_csv_creates_array_of_all_games
@@ -36,5 +42,93 @@ class StatTrackerTest < Minitest::Test
 
   def test_returns_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
+  end
+
+  def test_it_can_return_highest_total_score
+    assert_equal 11, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_return_lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
+
+  def test_it_can_return_percentage_home_wins
+    assert_equal 40.0, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_return_percentage_visitor_wins
+    assert_equal 40.0, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_it_can_return_percentage_ties
+    assert_equal 20.0, @stat_tracker.percentage_ties
+  end
+
+  def test_it_can_return_percentage_ties
+    assert_equal 20.0, @stat_tracker.percentage_ties
+  end
+
+  def test_it_can_return_count_of_games_by_season
+    expected_hash = {
+                  "20122013" => 806,
+                  "20162017" => 1317,
+                  "20142015" => 1319,
+                  "20152016" => 1321,
+                  "20132014" => 1323,
+                  "20172018" => 1355
+                  }
+    assert_equal expected_hash, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_it_can_return_average_goals_per_game
+    assert_equal 4.22, @stat_tracker.average_goals_per_game
+  end
+
+  def test_it_can_return_average_goals_by_season
+    expected_hash = {
+                  "20122013" => 4.12,
+                  "20162017" => 4.23,
+                  "20142015" => 4.14,
+                  "20152016" => 4.16,
+                  "20132014" => 4.19,
+                  "20172018" => 4.44
+                  }
+    assert_equal expected_hash, @stat_tracker.average_goals_by_season
+  end
+
+  def test_it_can_get_team_info
+    expected = {team_id: 1, franchise_id: 23,
+                team_name: "Atlanta United", abbreviation: "ATL",
+                link: "/api/v1/teams/1"
+                }
+    assert_equal expected, @stat_tracker.team_info(1)
+  end
+
+  def test_it_can_get_best_season
+    assert_equal "20132014", @stat_tracker.best_season(6)
+  end
+
+  def test_it_can_get_worst_season
+    assert_equal "20142015", @stat_tracker.worst_season(6)
+  end
+
+  def test_it_can_get_average_win_percentage
+    assert_equal 49.22, @stat_tracker.average_win_percentage(6)
+  end
+
+  def test_it_can_get_most_goals
+    assert_equal 7, @stat_tracker.most_goals_scored(18)
+  end
+
+  def test_it_can_get_fewest_goals_scored
+    assert_equal 0, @stat_tracker.fewest_goals_scored(18)
+  end
+
+  def test_it_can_get_favorite_opponent
+    assert_equal "DC United", @stat_tracker.favorite_opponent(18)
+  end
+
+  def test_it_can_get_rival
+    assert_equal "LA Galaxy", @stat_tracker.rival(18)
   end
 end
