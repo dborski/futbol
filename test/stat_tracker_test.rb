@@ -5,7 +5,7 @@ require './lib/team'
 require './lib/game_team'
 require './lib/league_stats'
 require './lib/season_stats'
-# require './lib/team_stats'
+require './lib/team_stats'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -94,4 +94,13 @@ class StatTrackerTest < Minitest::Test
                   }
     assert_equal expected_hash, @stat_tracker.average_goals_by_season
   end
+
+  def test_it_can_get_team_info
+    expected = {team_id: 1, franchise_id: 23,
+                team_name: "Atlanta United", abbreviation: "ATL",
+                link: "/api/v1/teams/1"
+                }
+    assert_equal expected, @stat_tracker.team_info(1)
+  end
+
 end

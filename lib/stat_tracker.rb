@@ -14,7 +14,7 @@ class StatTracker
     @game_teams = GameTeam.from_csv(game_teams_path)
     @league_stats = LeagueStats.new(@game_teams, @teams)
     @season_stats = SeasonStats.new(@game_teams, @games, @teams)
-    # @team_stats = TeamStats(@game_teams, @games, @teams)
+    @team_stats = TeamStats.new(@game_teams, @teams, @games)
   end
 
   def count_of_teams
@@ -53,5 +53,7 @@ class StatTracker
     Game.average_goals_by_season
   end
 
-  
+  def team_info(team_id)
+    @team_stats.team_info(team_id)
+  end
 end
