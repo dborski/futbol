@@ -135,4 +135,8 @@ class StatTracker
   def highest_scoring_home_team
     @league_stats.highest_scoring_home_team
   end
+
+  def lowest_scoring_home_team
+    @league_stats.lowest_scoring_home_team
+  end
 end
