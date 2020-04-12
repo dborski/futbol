@@ -108,4 +108,16 @@ class TeamStats
       ((wins / total_games) * 100).round(2)
     end
   end
+
+  def rival(team_id)
+    opponent_wins = opponent_win_percentages(team_id)
+    rival_wins = opponent_wins.max
+    Team.find_name(rival_wins.first)
+  end
+
+  def favorite_opponent(team_id)
+    opponent_wins = opponent_win_percentages(team_id)
+    favorite_wins = opponent_wins.min
+    Team.find_name(favorite_wins.first)
+  end
 end
