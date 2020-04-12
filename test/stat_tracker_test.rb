@@ -111,4 +111,15 @@ class StatTrackerTest < Minitest::Test
     assert_equal "2013", @stat_tracker.best_season(1)
   end
 
+  def test_it_can_get_worst_season
+    result = {"2012" => 50.00, "2013" => 100.00,
+                "2014" => 12.31, "2015" => 66.33}
+    @stat_tracker.team_stats.stubs(:win_percentage_by_season).returns(result)
+    assert_equal "2014", @stat_tracker.worst_season(1)
+  end
+
+  def test_it_can_get_average_win_percentage
+    assert_equal 49.22, @stat_tracker.average_win_percentage(6)
+  end
+
 end
