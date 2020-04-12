@@ -108,7 +108,6 @@ class TeamStatsTest < Minitest::Test
     assert_equal 5, @team_stats.find_opponent_games(2012020001,4).team_id
     assert_instance_of GameTeam, @team_stats.find_opponent_games(2012020001,4)
     assert_equal 52, @team_stats.find_opponent_games(2012020002,9).team_id
-
   end
 
   def test_it_can_get_all_games_by_opponent
@@ -127,12 +126,12 @@ class TeamStatsTest < Minitest::Test
     game_team5.stubs(:game_id).returns(3)
     game_team6.stubs(:game_id).returns(3)
 
-    game_team1.stubs(:team_id).returns(1).then.returns(1)
-    game_team2.stubs(:team_id).returns(2).then.returns(2)
-    game_team3.stubs(:team_id).returns(1).then.returns(1)
-    game_team4.stubs(:team_id).returns(3).then.returns(3)
-    game_team5.stubs(:team_id).returns(1).then.returns(1)
-    game_team6.stubs(:team_id).returns(3).then.returns(3)
+    game_team1.stubs(:team_id).returns(1)
+    game_team2.stubs(:team_id).returns(2)
+    game_team3.stubs(:team_id).returns(1)
+    game_team4.stubs(:team_id).returns(3)
+    game_team5.stubs(:team_id).returns(1)
+    game_team6.stubs(:team_id).returns(3)
     expected = {2 => [game_team2], 3 => [game_team4, game_team6]}
     assert_equal expected, @team_stats.games_by_opponent(1)
   end
