@@ -127,4 +127,12 @@ class StatTrackerTest < Minitest::Test
     assert_equal 0, @stat_tracker.fewest_goals_scored(18)
   end
 
+  def test_it_can_get_rival_and_favorite_opponent
+    @stat_tracker.team_stats.stubs(:opponent_win_percentages).returns({2 => 33.33,
+                                                          3 => 50.00,
+                                                          5 => 66.67})
+
+    assert_equal "Sporting Kansas City", @stat_tracker.rival(1)
+    assert_equal "Seattle Sounders FC", @stat_tracker.favorite_opponent(1)
+  end
 end
