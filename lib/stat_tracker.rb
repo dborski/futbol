@@ -127,4 +127,8 @@ class StatTracker
   def highest_scoring_visitor
     @league_stats.highest_scoring_visitor
   end
+
+  def lowest_scoring_visitor
+    @league_stats.lowest_scoring_visitor
+  end
 end
