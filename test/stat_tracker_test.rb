@@ -131,4 +131,28 @@ class StatTrackerTest < Minitest::Test
   def test_it_can_get_rival
     assert_equal "LA Galaxy", @stat_tracker.rival(18)
   end
+
+  def test_it_can_get_winningest_coach
+    assert_equal "Dan Lacroix", @stat_tracker.winningest_coach("20122013")
+  end
+
+  def test_it_can_get_worst_coach
+    assert_equal "Martin Raymond", @stat_tracker.worst_coach("20122013")
+  end
+
+  def test_it_can_get_most_accurate_team
+    assert_equal "DC United", @stat_tracker.most_accurate_team("20122013")
+  end
+
+  def test_it_can_get_least_accurate_team
+    assert_equal "New York City FC", @stat_tracker.least_accurate_team("20122013")
+  end
+
+  def test_it_can_get_team_with_most_tackles
+    assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20122013")
+  end
+
+  def test_it_can_get_team_with_fewest_tackles
+    assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20122013")
+  end
 end
