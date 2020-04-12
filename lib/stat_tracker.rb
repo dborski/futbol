@@ -84,4 +84,28 @@ class StatTracker
   def favorite_opponent(team_id)
     @team_stats.favorite_opponent(team_id)
   end
+
+  def winningest_coach(season_id)
+    @season_stats.winningest_coach(season_id)
+  end
+
+  def worst_coach(season_id)
+    @season_stats.worst_coach(season_id)
+  end
+
+  def most_accurate_team(season_id)
+    @season_stats.most_accurate_team(season_id)
+  end
+
+  def least_accurate_team(season_id)
+    @season_stats.least_accurate_team(season_id)
+  end
+
+  def most_tackles(season_id)
+    @season_stats.most_tackles(season_id)
+  end
+  
+  def fewest_tackles(season_id)
+    @season_stats.fewest_tackles(season_id)
+  end
 end
