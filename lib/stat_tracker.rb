@@ -1,5 +1,5 @@
 class StatTracker
-  attr_reader :games, :teams, :game_teams, :league_stats, :sea
+  attr_reader :games, :teams, :game_teams, :league_stats, :team_stats
 
   def self.from_csv(file_paths)
     game_path = file_paths[:games]
@@ -55,5 +55,9 @@ class StatTracker
 
   def team_info(team_id)
     @team_stats.team_info(team_id)
+  end
+
+  def best_season(team_id)
+    @team_stats.best_season(team_id)
   end
 end

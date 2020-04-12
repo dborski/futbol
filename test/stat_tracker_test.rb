@@ -30,6 +30,7 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of Team, @stat_tracker.teams[0]
     assert_instance_of GameTeam, @stat_tracker.game_teams[0]
     assert_instance_of LeagueStats, @stat_tracker.league_stats
+    assert_instance_of TeamStats, @stat_tracker.team_stats
   end
 
   def test_from_csv_creates_array_of_all_games
@@ -101,6 +102,13 @@ class StatTrackerTest < Minitest::Test
                 link: "/api/v1/teams/1"
                 }
     assert_equal expected, @stat_tracker.team_info(1)
+  end
+
+  def test_it_can_get_best_season
+    result = {"2012" => 50.00, "2013" => 100.00,
+                "2014" => 12.31, "2015" => 66.33}
+    @stat_tracker.team_stats.stubs(:win_percentage_by_season).returns(result)
+    assert_equal "2013", @stat_tracker.best_season(1)
   end
 
 end
