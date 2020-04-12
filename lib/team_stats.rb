@@ -111,13 +111,13 @@ class TeamStats
 
   def rival(team_id)
     opponent_wins = opponent_win_percentages(team_id)
-    rival_wins = opponent_wins.max
+    rival_wins = opponent_wins.max_by{|key, value| value }
     Team.find_name(rival_wins.first)
   end
 
   def favorite_opponent(team_id)
     opponent_wins = opponent_win_percentages(team_id)
-    favorite_wins = opponent_wins.min
+    favorite_wins = opponent_wins.min_by {|key, value| value }
     Team.find_name(favorite_wins.first)
   end
 end
