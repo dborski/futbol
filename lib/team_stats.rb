@@ -18,8 +18,10 @@ class TeamStats
     team_info
   end
 
-  def season_from_game(game_id)
-    game_team = @game_teams.find{|game_team| game_team.game_id== game_id}
+  def season_from_game(game_id, team_id)
+    game_team = @game_teams.find do |game_team|
+      game_team.game_id == game_id && game_team.team_id == team_id
+    end
     game_season = {}
     game = @games.find{|game| game.game_id == game_id }
     game_season[game.season] = game_team
@@ -52,7 +54,7 @@ class TeamStats
     games_by_season = {}
     games = games_played_in(team_id).map do |game|
       # require 'pry'; binding.pry
-      season_from_game(game.game_id)
+      season_from_game(game.game_id, team_id)
     end
     games.each do |game|
       unless games_by_season[game.keys[0]]
