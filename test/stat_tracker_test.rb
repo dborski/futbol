@@ -105,34 +105,30 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_best_season
-    result = {"2012" => 50.00, "2013" => 100.00,
-                "2014" => 12.31, "2015" => 66.33}
-    @stat_tracker.team_stats.stubs(:win_percentage_by_season).returns(result)
-    assert_equal "2013", @stat_tracker.best_season(1)
+    assert_equal "20132014", @stat_tracker.best_season(6)
   end
 
   def test_it_can_get_worst_season
-    result = {"2012" => 50.00, "2013" => 100.00,
-                "2014" => 12.31, "2015" => 66.33}
-    @stat_tracker.team_stats.stubs(:win_percentage_by_season).returns(result)
-    assert_equal "2014", @stat_tracker.worst_season(1)
+    assert_equal "20142015", @stat_tracker.worst_season(6)
   end
 
   def test_it_can_get_average_win_percentage
     assert_equal 49.22, @stat_tracker.average_win_percentage(6)
   end
 
-  def test_it_can_get_most_and_fewest_goals
+  def test_it_can_get_most_goals
     assert_equal 7, @stat_tracker.most_goals_scored(18)
+  end
+
+  def test_it_can_get_fewest_goals_scored
     assert_equal 0, @stat_tracker.fewest_goals_scored(18)
   end
 
-  def test_it_can_get_rival_and_favorite_opponent
-    @stat_tracker.team_stats.stubs(:opponent_win_percentages).returns({2 => 33.33,
-                                                          3 => 50.00,
-                                                          5 => 66.67})
+  def test_it_can_get_favorite_opponent
+    assert_equal "DC United", @stat_tracker.favorite_opponent(18)
+  end
 
-    assert_equal "Sporting Kansas City", @stat_tracker.rival(1)
-    assert_equal "Seattle Sounders FC", @stat_tracker.favorite_opponent(1)
+  def test_it_can_get_rival
+    assert_equal "LA Galaxy", @stat_tracker.rival(18)
   end
 end
