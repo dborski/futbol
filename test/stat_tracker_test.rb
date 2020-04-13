@@ -161,4 +161,28 @@ class StatTrackerTest < Minitest::Test
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
+
+  def test_it_can_return_best_offense
+    assert_equal "Reign FC", @stat_tracker.best_offense
+  end
+
+  def test_it_can_return_worst_offense
+    assert_equal "Utah Royals FC", @stat_tracker.worst_offense
+  end
+
+  def test_it_can_return_highest_scoring_visitor
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_visitor
+  end
+
+  def test_it_can_return_lowest_scoring_visitor
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_visitor
+  end
+
+  def test_it_can_return_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
+
+  def test_it_can_return_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
+  end
 end

@@ -1,3 +1,10 @@
+require_relative 'game'
+require_relative 'team'
+require_relative 'game_team'
+require_relative 'season_stats'
+require_relative 'league_stats'
+require_relative 'team_stats'
+
 class StatTracker
   attr_reader :games, :teams, :game_teams, :league_stats, :team_stats
 
@@ -104,8 +111,32 @@ class StatTracker
   def most_tackles(season_id)
     @season_stats.most_tackles(season_id)
   end
-  
+
   def fewest_tackles(season_id)
     @season_stats.fewest_tackles(season_id)
+  end
+
+  def best_offense
+    @league_stats.best_offense
+  end
+
+  def worst_offense
+    @league_stats.worst_offense
+  end
+
+  def highest_scoring_visitor
+    @league_stats.highest_scoring_visitor
+  end
+
+  def lowest_scoring_visitor
+    @league_stats.lowest_scoring_visitor
+  end
+
+  def highest_scoring_home_team
+    @league_stats.highest_scoring_home_team
+  end
+
+  def lowest_scoring_home_team
+    @league_stats.lowest_scoring_home_team
   end
 end
