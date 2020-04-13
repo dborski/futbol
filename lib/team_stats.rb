@@ -53,7 +53,6 @@ class TeamStats
   def games_by_season(team_id)
     games_by_season = {}
     games = games_played_in(team_id).map do |game|
-      # require 'pry'; binding.pry
       season_from_game(game.game_id, team_id)
     end
     games.each do |game|
