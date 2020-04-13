@@ -20,10 +20,10 @@ class Team
     end
     team_name.team_name
   end
-  
+
   def initialize(team_details)
-    @team_id = team_details[:team_id].to_i
-    @franchise_id = team_details[:franchiseid].to_i
+    @team_id = team_details[:team_id]
+    @franchise_id = team_details[:franchiseid]
     @team_name = team_details[:teamname]
     @abbreviation = team_details[:abbreviation]
     @stadium = team_details[:stadium]
