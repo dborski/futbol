@@ -27,28 +27,43 @@ class LeagueStats
   end
 
   def best_offense
-    game_team = @game_teams.max_by {|team| average_goals_per_team(team.team_id)}
+    average_goals = average_goals_per_team(team.team_id)
+    game_team = @game_teams.max_by {|team| average_goals}
     game_team_id = game_team.team_id
     find_name(game_team_id)
   end
 
   def worst_offense
-    game_team = @game_teams.min_by {|team| average_goals_per_team(team.team_id)}
+    average_goals = average_goals_per_team(team.team_id)
+    game_team = @game_teams.max_by {|team| average_goals}
     game_team_id = game_team.team_id
     find_name(game_team_id)
   end
 
-
   def highest_scoring_visitor
-    away_team = away_games.max_by {|team| average_goals_per_team(team.team_id)}
-    away_team_id = away_team.team_id
-    find_name(away_team_id)
+    away_teams = away_games.group_by {|game| game.team_id }
+    away_team_records = away_teams.transform_values do |games|
+      total_games = games.length.to_f
+      goals = games.sum {|games| games.goals}
+      (goals / total_games)
+    end
+    highest_scoring = away_team_records.max_by do |team, average_goals|
+      average_goals
+    end
+    find_name(highest_scoring.first)
   end
 
   def lowest_scoring_visitor
-    away_team = away_games.min_by {|team| average_goals_per_team(team.team_id)}
-    away_team_id = away_team.team_id
-    find_name(away_team_id)
+    away_teams = away_games.group_by {|game| game.team_id }
+    away_team_records = away_teams.transform_values do |games|
+      total_games = games.length.to_f
+      goals = games.sum {|games| games.goals}
+      (goals / total_games)
+    end
+    lowest_scoring = away_team_records.min_by do |team, average_goals|
+      average_goals
+    end
+    find_name(lowest_scoring.first)
   end
 
   def highest_scoring_home_team
