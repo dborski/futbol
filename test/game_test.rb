@@ -62,15 +62,15 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_return_percentage_home_wins
-    assert_equal 50.0, Game.percentage_home_wins
+    assert_equal 0.50, Game.percentage_home_wins
   end
 
   def test_it_can_return_percentage_visitor_wins
-    assert_equal 30.0, Game.percentage_visitor_wins
+    assert_equal 0.30, Game.percentage_visitor_wins
   end
 
   def test_it_can_return_percentage_ties
-    assert_equal 20.0, Game.percentage_ties
+    assert_equal 0.20, Game.percentage_ties
   end
 
   def test_it_can_return_count_of_games_by_season

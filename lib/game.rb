@@ -30,17 +30,17 @@ class Game
 
   def self.percentage_home_wins
     home_wins = @@all.find_all { |game| game.home_goals > game.away_goals}.count
-    ( home_wins.to_f / @@all.length.to_f ).round(1) * 100
+    ( home_wins.to_f / @@all.length.to_f ).round(2)
   end
 
   def self.percentage_visitor_wins
     visitor_wins = @@all.find_all { |game| game.home_goals < game.away_goals}.count
-    ( visitor_wins.to_f / @@all.length.to_f ).round(1) * 100
+    ( visitor_wins.to_f / @@all.length.to_f ).round(2)
   end
 
   def self.percentage_ties
     ties = @@all.find_all { |game| game.home_goals == game.away_goals}.count
-    ( ties.to_f / @@all.length.to_f ).round(1) * 100
+    ( ties.to_f / @@all.length.to_f ).round(2)
   end
 
   def self.count_of_games_by_season
