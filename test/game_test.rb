@@ -12,8 +12,6 @@ class GameTest < Minitest::Test
       venue_link: "/api/v1/venues/null"
       })
       @games = create_objects("./test/fixtures/games_truncated.csv", Game)
-      # @games = Game.all
-      # require 'pry'; binding.pry
   end
 
   def test_it_exists
