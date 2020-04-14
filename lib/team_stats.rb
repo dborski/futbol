@@ -1,4 +1,7 @@
+require_relative 'mathable'
+
 class TeamStats
+  include Mathable
 
   attr_reader :game_teams, :teams, :games
   def initialize(game_teams, teams, games)
@@ -34,10 +37,8 @@ class TeamStats
 
   def average_win_percentage(team_id)
     games_played = games_played_in(team_id)
-    games_won = games_played.select{|game| game.result == "WIN"}
-    win_ratio = games_won.length.to_f / games_played.length.to_f
-    win_percentage = win_ratio.round(2)
-    win_percentage
+    games_won = games_played.select{|game| game.result == "WIN"}.length
+    percent(games_won, games_played)
   end
 
   def most_goals_scored(team_id)
@@ -66,9 +67,9 @@ class TeamStats
 
   def win_percentage_by_season(team_id)
     games_by_season(team_id).transform_values do |games|
-      total_games = games.length.to_f
-      wins = games.select{|game| game.result == "WIN"}.length.to_f
-      ((wins / total_games) * 100).round(2)
+      total_games = games
+      wins = games.select{|game| game.result == "WIN"}.length
+      percent(wins, total_games)
     end
   end
 
@@ -104,9 +105,9 @@ class TeamStats
 
   def opponent_win_percentages(team_id)
     games_by_opponent(team_id).transform_values do |games|
-      total_games = games.length.to_f
-      wins = games.select{|game| game.result == "WIN"}.length.to_f
-      ((wins / total_games) * 100).round(2)
+      total_games = games
+      wins = games.select{|game| game.result == "WIN"}.length
+      percent(wins, total_games)
     end
   end
 
@@ -118,7 +119,7 @@ class TeamStats
 
   def favorite_opponent(team_id)
     opponent_wins = opponent_win_percentages(team_id)
-    favorite_wins = opponent_wins.min_by {|key, value| value }
+    favorite_wins = opponent_wins.min_by { |key, value| value }
     Team.find_name(favorite_wins.first)
   end
 end

@@ -1,16 +1,18 @@
 require 'CSV'
+require_relative 'collectable'
+require_relative 'mathable'
+
 class Game
+  include Collectable
+  extend Mathable
+
   @@all = []
+
   attr_reader :game_id, :season,
               :type, :date_time,
               :away_team_id, :home_team_id,
               :away_goals, :home_goals,
               :venue, :venue_link
-
-  def self.from_csv(file_path)
-    csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol )
-    @@all = csv.map{|row| Game.new(row)}
-  end
 
   def self.all
     @@all
@@ -30,17 +32,17 @@ class Game
 
   def self.percentage_home_wins
     home_wins = @@all.find_all { |game| game.home_goals > game.away_goals}.count
-    ( home_wins.to_f / @@all.length.to_f ).round(2)
+    percent(home_wins, @@all)
   end
 
   def self.percentage_visitor_wins
     visitor_wins = @@all.find_all { |game| game.home_goals < game.away_goals}.count
-    ( visitor_wins.to_f / @@all.length.to_f ).round(2)
+    percent(visitor_wins, @@all)
   end
 
   def self.percentage_ties
     ties = @@all.find_all { |game| game.home_goals == game.away_goals}.count
-    ( ties.to_f / @@all.length.to_f ).round(2)
+    percent(ties, @@all)
   end
 
   def self.count_of_games_by_season
@@ -49,14 +51,14 @@ class Game
   end
 
   def self.average_goals_per_game
-    (all_scores.sum.to_f / @@all.length.to_f).round(2)
+    average(all_scores.sum, @@all.length)
   end
 
   def self.average_goals_by_season
     games_by_season = @@all.group_by { |game| game.season }
     games_by_season.transform_values do |game|
       game_scores = game.map { |game| game.away_goals + game.home_goals }
-      (game_scores.sum.to_f / game_scores.length.to_f).round(2)
+      average(game_scores.sum, game_scores.length)
     end
   end
 

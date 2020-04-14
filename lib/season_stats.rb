@@ -1,4 +1,7 @@
+require_relative 'mathable'
+
 class SeasonStats
+  include Mathable
 
   attr_reader :game_teams, :games, :teams
   def initialize(game_teams, games, teams)
@@ -43,7 +46,7 @@ class SeasonStats
     games_by_head_coach(season_id).each do |coach, games|
       winning_games = games.find_all { |game| game.result == "WIN" }
       if winning_games.length != 0
-        games = ((winning_games.length.to_f / games.length.to_f) * 100).round(2)
+        games = percent(winning_games.length, games)
         winning_percentage_by_head_coach[coach] = games
       else
         winning_percentage_by_head_coach[coach] = 0
