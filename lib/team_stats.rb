@@ -10,11 +10,11 @@ class TeamStats
   def team_info(id)
     team = @teams.find{|team| team.team_id == id}
     team_info = {}
-    team_info[:team_id] = team.team_id
-    team_info[:franchise_id] = team.franchise_id
-    team_info[:abbreviation] = team.abbreviation
-    team_info[:team_name] = team.team_name
-    team_info[:link] = team.link
+    team_info["team_id"] = team.team_id
+    team_info["franchise_id"] = team.franchise_id
+    team_info["abbreviation"] = team.abbreviation
+    team_info["team_name"] = team.team_name
+    team_info["link"] = team.link
     team_info
   end
 
@@ -36,7 +36,7 @@ class TeamStats
     games_played = games_played_in(team_id)
     games_won = games_played.select{|game| game.result == "WIN"}
     win_ratio = games_won.length.to_f / games_played.length.to_f
-    win_percentage = (win_ratio * 100.00).round(2)
+    win_percentage = win_ratio.round(2)
     win_percentage
   end
 
@@ -53,7 +53,6 @@ class TeamStats
   def games_by_season(team_id)
     games_by_season = {}
     games = games_played_in(team_id).map do |game|
-      # require 'pry'; binding.pry
       season_from_game(game.game_id, team_id)
     end
     games.each do |game|

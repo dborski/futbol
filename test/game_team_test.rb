@@ -6,7 +6,7 @@ require './test/test_helper'
 class GameTeamTest < Minitest::Test
 
   def setup
-    @game_team = GameTeam.new({game_id: 2012030221, team_id: 3,
+    @game_team = GameTeam.new({game_id: 2012030221, team_id: "3",
       hoa: "away", result: "LOSS", head_coach: "John Tortorella", goals: 2,
       shots: 8, tackles: 44
       })
@@ -21,7 +21,7 @@ class GameTeamTest < Minitest::Test
 
   def test_it_has_readable_attributes
     assert_equal 2012030221, @game_team.game_id
-    assert_equal 3, @game_team.team_id
+    assert_equal "3", @game_team.team_id
     assert_equal "away", @game_team.hoa
     assert_equal "LOSS", @game_team.result
     assert_equal "John Tortorella", @game_team.head_coach
@@ -34,7 +34,7 @@ class GameTeamTest < Minitest::Test
     assert_instance_of GameTeam, @game_teams[0]
     assert_instance_of GameTeam, @game_teams[-1]
     assert_equal 2012030221, @game_teams[0].game_id
-    assert_equal 3, @game_teams[0].team_id
+    assert_equal "3", @game_teams[0].team_id
     assert_equal "away", @game_teams[0].hoa
     assert_equal "LOSS", @game_teams[0].result
     assert_equal "John Tortorella", @game_teams[0].head_coach

@@ -53,19 +53,15 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_percentage_home_wins
-    assert_equal 40.0, @stat_tracker.percentage_home_wins
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
 
   def test_it_can_return_percentage_visitor_wins
-    assert_equal 40.0, @stat_tracker.percentage_visitor_wins
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
   end
 
   def test_it_can_return_percentage_ties
-    assert_equal 20.0, @stat_tracker.percentage_ties
-  end
-
-  def test_it_can_return_percentage_ties
-    assert_equal 20.0, @stat_tracker.percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
   end
 
   def test_it_can_return_count_of_games_by_season
@@ -97,39 +93,39 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_get_team_info
-    expected = {team_id: 1, franchise_id: 23,
-                team_name: "Atlanta United", abbreviation: "ATL",
-                link: "/api/v1/teams/1"
+    expected = {"team_id" => "1", "franchise_id" => "23",
+                "team_name" => "Atlanta United", "abbreviation" => "ATL",
+                "link" => "/api/v1/teams/1"
                 }
-    assert_equal expected, @stat_tracker.team_info(1)
+    assert_equal expected, @stat_tracker.team_info("1")
   end
 
   def test_it_can_get_best_season
-    assert_equal "20132014", @stat_tracker.best_season(6)
+    assert_equal "20132014", @stat_tracker.best_season("6")
   end
 
   def test_it_can_get_worst_season
-    assert_equal "20142015", @stat_tracker.worst_season(6)
+    assert_equal "20142015", @stat_tracker.worst_season("6")
   end
 
   def test_it_can_get_average_win_percentage
-    assert_equal 49.22, @stat_tracker.average_win_percentage(6)
+    assert_equal 0.49, @stat_tracker.average_win_percentage("6")
   end
 
   def test_it_can_get_most_goals
-    assert_equal 7, @stat_tracker.most_goals_scored(18)
+    assert_equal 7, @stat_tracker.most_goals_scored("18")
   end
 
   def test_it_can_get_fewest_goals_scored
-    assert_equal 0, @stat_tracker.fewest_goals_scored(18)
+    assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
 
   def test_it_can_get_favorite_opponent
-    assert_equal "DC United", @stat_tracker.favorite_opponent(18)
+    assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
 
   def test_it_can_get_rival
-    assert_equal "LA Galaxy", @stat_tracker.rival(18)
+    assert_equal "LA Galaxy", @stat_tracker.rival("18")
   end
 
   def test_it_can_get_winningest_coach
@@ -171,7 +167,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_highest_scoring_visitor
-    assert_equal "Reign FC", @stat_tracker.highest_scoring_visitor
+    assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
   end
 
   def test_it_can_return_lowest_scoring_visitor
