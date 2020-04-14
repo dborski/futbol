@@ -39,9 +39,6 @@ class TeamStats
     games_played = games_played_in(team_id)
     games_won = games_played.select{|game| game.result == "WIN"}.length
     percent(games_won, games_played)
-    # win_ratio = games_won.length.to_f / games_played.length.to_f
-    # win_percentage = win_ratio.round(2)
-    # win_percentage
   end
 
   def most_goals_scored(team_id)
@@ -122,7 +119,7 @@ class TeamStats
 
   def favorite_opponent(team_id)
     opponent_wins = opponent_win_percentages(team_id)
-    favorite_wins = opponent_wins.min_by {|key, value| value }
+    favorite_wins = opponent_wins.min_by { |key, value| value }
     Team.find_name(favorite_wins.first)
   end
 end
