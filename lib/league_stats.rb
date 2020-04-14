@@ -1,4 +1,7 @@
+require_relative 'mathable'
+
 class LeagueStats
+  include Mathable
 
   attr_reader :game_teams, :teams
   def initialize(game_teams, teams)
@@ -23,7 +26,8 @@ class LeagueStats
   end
 
   def average_goals_per_team(team_id)
-    (total_goals_by_team_id(team_id).to_f / total_games_by_team_id(team_id).to_f).round(2)
+    average(total_goals_by_team_id(team_id), total_games_by_team_id(team_id))
+    #(total_goals_by_team_id(team_id).to_f / total_games_by_team_id(team_id).to_f).round(2)
   end
 
   def best_offense
