@@ -4,7 +4,7 @@ require_relative 'mathable'
 
 class Game
   include Collectable
-  include Mathable
+  extend Mathable
 
   @@all = []
 
@@ -30,19 +30,19 @@ class Game
     all_scores.min
   end
 
-  def percentage_home_wins
+  def self.percentage_home_wins
     home_wins = @@all.find_all { |game| game.home_goals > game.away_goals}.count
     percent(home_wins, @@all)
   end
 
   def self.percentage_visitor_wins
     visitor_wins = @@all.find_all { |game| game.home_goals < game.away_goals}.count
-    ( visitor_wins.to_f / @@all.length.to_f ).round(2)
+    percent(visitor_wins, @@all)
   end
 
   def self.percentage_ties
     ties = @@all.find_all { |game| game.home_goals == game.away_goals}.count
-    ( ties.to_f / @@all.length.to_f ).round(2)
+    percent(ties, @@all)
   end
 
   def self.count_of_games_by_season
