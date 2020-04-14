@@ -1,8 +1,10 @@
 require 'CSV'
 require_relative 'collectable'
+require_relative 'mathable'
 
 class Game
   include Collectable
+  include Mathable
 
   @@all = []
 
@@ -11,11 +13,6 @@ class Game
               :away_team_id, :home_team_id,
               :away_goals, :home_goals,
               :venue, :venue_link
-
-  # def self.from_csv(file_path)
-  #   csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol )
-  #   @@all = csv.map{|row| Game.new(row)}
-  # end
 
   def self.all
     @@all
@@ -33,9 +30,9 @@ class Game
     all_scores.min
   end
 
-  def self.percentage_home_wins
+  def percentage_home_wins
     home_wins = @@all.find_all { |game| game.home_goals > game.away_goals}.count
-    ( home_wins.to_f / @@all.length.to_f ).round(2)
+    percent(home_wins, @@all)
   end
 
   def self.percentage_visitor_wins
