@@ -4,8 +4,11 @@ require_relative 'game_team'
 require_relative 'season_stats'
 require_relative 'league_stats'
 require_relative 'team_stats'
+require_relative 'collectable'
 
 class StatTracker
+  include Collectable
+
   attr_reader :games, :teams, :game_teams, :league_stats, :team_stats
 
   def self.from_csv(file_paths)
@@ -16,9 +19,9 @@ class StatTracker
   end
 
   def initialize(game_path, teams_path, game_teams_path)
-    @games = Game.from_csv(game_path)
-    @teams = Team.from_csv(teams_path)
-    @game_teams = GameTeam.from_csv(game_teams_path)
+    @games = create_objects(game_path, Game)
+    @teams = create_objects(teams_path, Team)
+    @game_teams = create_objects(game_teams_path, GameTeam)
     @league_stats = LeagueStats.new(@game_teams, @teams)
     @season_stats = SeasonStats.new(@game_teams, @games, @teams)
     @team_stats = TeamStats.new(@game_teams, @teams, @games)
