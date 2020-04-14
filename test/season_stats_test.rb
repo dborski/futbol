@@ -3,13 +3,15 @@ require './lib/game'
 require './lib/game_team'
 require './lib/season_stats'
 require './test/test_helper'
+require './lib/collectable'
 
 class SeasonStatsTest < Minitest::Test
+  include Collectable
 
   def setup
-    @game_teams = GameTeam.from_csv("./test/fixtures/game_teams_truncated_new.csv")
-    @games = Game.from_csv("./test/fixtures/game_truncated_new.csv")
-    @teams = Team.from_csv("./data/teams.csv")
+    @game_teams = create_objects("./test/fixtures/game_teams_truncated_new.csv", GameTeam)
+    @games = create_objects("./test/fixtures/game_truncated_new.csv", Game)
+    @teams = create_objects("./data/teams.csv", Team)
     @season_stats = SeasonStats.new(@game_teams, @games, @teams)
   end
 

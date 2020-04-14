@@ -1,9 +1,11 @@
 require './lib/game'
 require './test/test_helper'
 require './lib/collectable'
+require './lib/mathable'
 
 class GameTest < Minitest::Test
   include Collectable
+  include Mathable
 
   def setup
     @game = Game.new({game_id: "2012030221", season: "20122013",
@@ -65,7 +67,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_can_return_percentage_home_wins
-    assert_equal 0.50, Game.percentage_home_wins
+    assert_equal 0.50, @games.percentage_home_wins
   end
 
   def test_it_can_return_percentage_visitor_wins
