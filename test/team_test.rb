@@ -1,13 +1,15 @@
 require './lib/team'
 require './test/test_helper'
+require './lib/collectable'
 
 class TeamTest < Minitest::Test
+  include Collectable
+
   def setup
     @team = Team.new({team_id: "1", franchiseid: "23",
       teamname: "Atlanta United", abbreviation: "ATL", stadium: "Mercedes-Benz Stadium", link: "/api/v1/teams/1"
       })
-      Team.from_csv("./data/teams.csv")
-      @teams = Team.all
+      @teams = create_objects("./data/teams.csv", Team)
   end
 
   def test_it_exists
