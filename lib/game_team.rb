@@ -1,14 +1,12 @@
 require 'CSV'
+require_relative 'collectable'
 
 class GameTeam
+  include Collectable
+
   @@all = []
   attr_reader :game_id, :team_id, :hoa, :result, :head_coach,
               :goals, :shots, :tackles
-
-  def self.from_csv(file_path)
-    csv = CSV.read("#{file_path}", headers: true, header_converters: :symbol )
-    @@all = csv.map{|row| GameTeam.new(row)}
-  end
 
   def self.all
     @@all

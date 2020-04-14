@@ -2,17 +2,18 @@ require './lib/team'
 require './lib/game'
 require './lib/game_team'
 require './test/test_helper'
+require './lib/collectable'
 
 class GameTeamTest < Minitest::Test
+  include Collectable
 
   def setup
     @game_team = GameTeam.new({game_id: 2012030221, team_id: "3",
       hoa: "away", result: "LOSS", head_coach: "John Tortorella", goals: 2,
       shots: 8, tackles: 44
       })
-      GameTeam.from_csv("./test/fixtures/game_teams_truncated.csv")
+    @game_teams = create_objects("./test/fixtures/game_teams_truncated.csv", GameTeam)
 
-    @game_teams = GameTeam.all
   end
 
   def test_it_exists
