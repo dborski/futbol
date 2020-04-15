@@ -6,6 +6,7 @@ require './lib/game_team'
 require './lib/league_stats'
 require './lib/season_stats'
 require './lib/team_stats'
+require './lib/game_stats'
 
 class StatTrackerTest < Minitest::Test
   def setup
@@ -31,6 +32,7 @@ class StatTrackerTest < Minitest::Test
     assert_instance_of GameTeam, @stat_tracker.game_teams[0]
     assert_instance_of LeagueStats, @stat_tracker.league_stats
     assert_instance_of TeamStats, @stat_tracker.team_stats
+    assert_instance_of GameStats, @stat_tracker.game_stats
   end
 
   def test_from_csv_creates_array_of_all_games
