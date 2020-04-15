@@ -169,12 +169,15 @@ class TeamStatsTest < Minitest::Test
   end
 
   def test_it_can_get_rival_and_favorite_opponent
-    skip
     @team_stats.stubs(:opponent_win_percentages).returns({"2" => 33.33,
                                                           "3" => 50.00,
                                                           "5" => 66.67})
 
     assert_equal "Sporting Kansas City", @team_stats.rival("1")
     assert_equal "Seattle Sounders FC", @team_stats.favorite_opponent("1")
+  end
+
+  def test_it_can_find_team_name_by_team_id
+    assert_equal "Chicago Fire", @team_stats.find_name("4")
   end
 end

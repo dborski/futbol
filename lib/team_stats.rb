@@ -10,6 +10,13 @@ class TeamStats
     @games = games
   end
 
+  def find_name(id)
+    team_name = @teams.find do |team|
+      team.team_id == id
+    end
+    team_name.team_name
+  end
+
   def team_info(id)
     team = @teams.find{|team| team.team_id == id}
     team_info = {}
@@ -114,12 +121,12 @@ class TeamStats
   def rival(team_id)
     opponent_wins = opponent_win_percentages(team_id)
     rival_wins = opponent_wins.max_by{|key, value| value }
-    Team.find_name(rival_wins.first)
+    find_name(rival_wins.first)
   end
 
   def favorite_opponent(team_id)
     opponent_wins = opponent_win_percentages(team_id)
     favorite_wins = opponent_wins.min_by { |key, value| value }
-    Team.find_name(favorite_wins.first)
+    find_name(favorite_wins.first)
   end
 end

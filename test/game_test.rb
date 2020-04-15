@@ -52,49 +52,4 @@ class GameTest < Minitest::Test
     assert_equal "Toyota Stadium", @games[0].venue
     assert_equal "/api/v1/venues/null", @games[0].venue_link
   end
-
-  def test_it_can_return_all_scores
-    all_scores_array = [5, 5, 3, 5, 4, 3, 5, 3, 1, 3, 3, 4, 2, 3, 3, 5, 5, 6, 4, 3, 5, 5, 6, 4, 3, 6, 4, 1, 6, 3]
-    assert_equal all_scores_array, Game.all_scores
-  end
-
-  def test_it_can_return_highest_total_score
-    assert_equal 6, Game.highest_total_score
-  end
-
-  def test_it_can_return_lowest_total_score
-    assert_equal 1, Game.lowest_total_score
-  end
-
-  def test_it_can_return_percentage_home_wins
-    assert_equal 0.50, Game.percentage_home_wins
-  end
-
-  def test_it_can_return_percentage_visitor_wins
-    assert_equal 0.30, Game.percentage_visitor_wins
-  end
-
-  def test_it_can_return_percentage_ties
-    assert_equal 0.20, Game.percentage_ties
-  end
-
-  def test_it_can_return_count_of_games_by_season
-    expected_hash = {
-                  "20122013" => 21,
-                  "20132014" => 9
-                  }
-    assert_equal expected_hash, Game.count_of_games_by_season
-  end
-
-  def test_it_can_return_average_goals_per_game
-    assert_equal 3.93, Game.average_goals_per_game
-  end
-
-  def test_it_can_return_average_goal_by_season
-    expected_hash = {
-                  "20122013" => 4.0,
-                  "20132014" => 3.78
-                  }
-    assert_equal expected_hash, Game.average_goals_by_season
-  end
 end
