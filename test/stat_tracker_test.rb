@@ -173,7 +173,7 @@ class StatTrackerTest < Minitest::Test
   end
 
   def test_it_can_return_lowest_scoring_visitor
-    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_visitor
+    assert_equal "San Jose Earthquakes", @stat_tracker.lowest_scoring_visitor
   end
 
   def test_it_can_return_highest_scoring_home_team

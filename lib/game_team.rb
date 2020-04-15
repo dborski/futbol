@@ -4,13 +4,8 @@ require_relative 'collectable'
 class GameTeam
   include Collectable
 
-  @@all = []
   attr_reader :game_id, :team_id, :hoa, :result, :head_coach,
               :goals, :shots, :tackles
-
-  def self.all
-    @@all
-  end
 
   def initialize(game_team_details)
     @game_id = game_team_details[:game_id].to_i

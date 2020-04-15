@@ -1,6 +1,7 @@
 require_relative 'game'
 require_relative 'team'
 require_relative 'game_team'
+require_relative 'game_stats'
 require_relative 'season_stats'
 require_relative 'league_stats'
 require_relative 'team_stats'
